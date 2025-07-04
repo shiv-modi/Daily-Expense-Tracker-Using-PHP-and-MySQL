@@ -4,6 +4,7 @@ Daily Expense Tracker System is a web-based application and this application is 
 
 Note 🔴: - This code has been modified from another project's source code on the web.
 
+🚨 : I Have Fix the URL of this Repo now you can clone this Repo in CLI
 
 ## 📄 Documentation
 

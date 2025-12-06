@@ -33,6 +33,7 @@ You can modify the code to meet your specific requirements.
 10. Analytics through graph
 11. Report
 12. Setting
+13. JWT Authentication - Coming soon... Stay tuned!
 
 🟩 Installation/Setup
 

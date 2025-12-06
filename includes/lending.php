@@ -27,7 +27,6 @@ if (strlen($_SESSION['detsuid'] == 0)) {
 
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
@@ -198,43 +197,8 @@ if (strlen($_SESSION['detsuid'] == 0)) {
               </div>
 
 
-              <?php
-              // Check if the form has been submitted
-              if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // Retrieve the form data
-                $userid = $_SESSION['detsuid'];
-                $name = $_POST['name'];
-                $date_of_lending = $_POST['date'];
-                $amount = $_POST['amount'];
-                $description = $_POST['description'];
-                $status = $_POST['status'];
-
-                // Connect to the database
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "expenditure";
-
-                $conn = mysqli_connect($servername, $username, $password, $dbname);
-                if (!$conn) {
-                  die("Connection failed: " . mysqli_connect_error());
-                }
-
-                // Insert the form data into the database
-                $sql = "INSERT INTO lending (name,UserId, date_of_lending, amount, description, status) VALUES ('$name','$userid' ,'$date_of_lending', $amount, '$description', '$status')";
-                if (mysqli_query($conn, $sql)) {
-                  echo '<script type="text/javascript">alert("New lending record created successfully");</script>';
-                  echo " <script type='text/javascript'>window.location.href = 'manage-lending.php';</script>";
-                } else {
-                  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                }
-
-                mysqli_close($conn);
-              }
-              ?>
-
               <div class="card-body">
-                <form method="POST">
+                <form id="lendingForm">
                   <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -263,6 +227,30 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                   <button type="submit" class="btn btn-primary">Add</button>
                 </form>
               </div>
+              <script>
+                $(document).ready(function() {
+                  $('#lendingForm').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                      url: 'api/lending.php',
+                      type: 'POST',
+                      data: $(this).serialize(),
+                      dataType: 'json',
+                      success: function(response) {
+                        if (response.status === 'success') {
+                          alert(response.message);
+                          window.location.href = 'manage-lending.php';
+                        } else {
+                          alert(response.message);
+                        }
+                      },
+                      error: function() {
+                        alert('An error occurred while processing your request.');
+                      }
+                    });
+                  });
+                });
+              </script>
 
 
 

@@ -6,23 +6,6 @@ include('database.php');
 if (strlen($_SESSION['detsuid'] == 0)) {
   header('location:logout.php');
 } else {
-  if (isset($_POST['submit'])) {
-    $userid = $_SESSION['detsuid'];
-    $dateexpense = $_POST['dateexpense'];
-    $CategoryId = $_POST['CategoryId'];
-    $category = $_POST['category'];
-    $Description = $_POST['category-description'];
-    $costitem = $_POST['costitem'];
-    $query = mysqli_query($db, "INSERT INTO tblexpense(UserId, ExpenseDate,CategoryId ,category, ExpenseCost ,Description) SELECT '$userid', '$dateexpense',CategoryId, CategoryName, '$costitem' ,'$Description ' FROM tblcategory WHERE CategoryId = '$category'");
-    if ($query) {
-      $message = "Expense added successfully";
-      echo "<script type='text/javascript'>alert('$message');</script>";
-      echo " <script type='text/javascript'>window.location.href = 'manage-transaction.php';</script>";
-    } else {
-      $message = "Expense could not be added";
-      echo "<script type='text/javascript'>alert('$message');</script>";
-    }
-  }
 ?>
 
 
@@ -227,7 +210,7 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                   <div class="modal fade" id="add-category-modal" tabindex="-1" role="dialog" aria-labelledby="add-category-modal-title" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
-                        <form id="add-category-form" method="post" action="add_category.php">
+                        <form id="add-category-form">
                           <div class="modal-header">
                             <h5 class="modal-title" id="add-category-modal-title">Add Category</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -244,7 +227,7 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary" name="add-category-submit">Add Category</button>
+                            <button type="submit" class="btn btn-primary">Add Category</button>
 
                           </div>
                         </form>
@@ -257,7 +240,7 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                 </div>
               </div>
               <div class="card-body">
-                <form id="expense-form" role="form" method="post" action="" class="needs-validation">
+                <form id="expenseForm" role="form" class="needs-validation">
                   <div class="form-group">
                     <label for="dateexpense">Date of Expense</label>
                     <input class="form-control" type="date" id="dateexpense" name="dateexpense" value="<?php echo date('Y-m-d'); ?>">
@@ -270,11 +253,11 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                       <option value="" selected disabled>Choose Category</option>
                       <?php
                       $userid = $_SESSION['detsuid'];
-                      $query = "SELECT * FROM tblcategory WHERE UserId = $userid AND Mode = 'expense' ";
+                      $query = "SELECT * FROM tblcategory WHERE userid = $userid AND mode = 'expense' ";
                       $result = mysqli_query($db, $query);
                       while ($row = mysqli_fetch_assoc($result)) {
                         // Display category options in a dropdown
-                        echo '<option value="' . $row['CategoryId'] . '">' . $row['CategoryName'] . '</option>';
+                        echo '<option value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
                       }
                       ?>
                     </select>
@@ -324,6 +307,52 @@ if (strlen($_SESSION['detsuid'] == 0)) {
         } else
           sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
       }
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('#expenseForm').on('submit', function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: 'api/add-expense.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+              if (response.status === 'success') {
+                alert(response.message);
+                window.location.href = 'manage-transaction.php';
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function() {
+              alert('An error occurred while processing your request.');
+            }
+          });
+        });
+
+        // Add Category AJAX handler
+        $('#add-category-form').on('submit', function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: 'api/add-category.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+              if (response.status === 'success') {
+                alert(response.message);
+                location.reload();
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function() {
+              alert('An error occurred while adding the category.');
+            }
+          });
+        });
+      });
     </script>
 
   <?php } ?>

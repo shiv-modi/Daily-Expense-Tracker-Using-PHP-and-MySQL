@@ -1,0 +1,45 @@
+<?php
+session_start();
+header('Content-Type: application/json');
+include_once('../database.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (empty($_SESSION['detsuid'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+        exit;
+    }
+
+    $userid = $_SESSION['detsuid'];
+    $expenseId = $_POST['expenseid'] ?? 0;
+    $dateexpense = $_POST['dateexpense'] ?? '';
+    $category = $_POST['category'] ?? '';
+    $cost = $_POST['cost'] ?? 0;
+    $description = $_POST['description'] ?? '';
+
+    if (empty($expenseId) || empty($dateexpense) || empty($category) || empty($cost)) {
+        echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
+        exit;
+    }
+
+    $catStmt = $db->prepare("SELECT CategoryName FROM tblcategory WHERE CategoryId = ?");
+    $catStmt->bind_param("i", $category);
+    $catStmt->execute();
+    $catResult = $catStmt->get_result();
+    $catRow = $catResult->fetch_assoc();
+    $categoryName = $catRow ? $catRow['CategoryName'] : '';
+    $catStmt->close();
+
+    $stmt = $db->prepare("UPDATE tblexpense SET ExpenseDate = ?, CategoryId = ?, category = ?, ExpenseCost = ?, Description = ? WHERE ID = ? AND UserId = ?");
+    $stmt->bind_param("sisssii", $dateexpense, $category, $categoryName, $cost, $description, $expenseId, $userid);
+
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success', 'message' => 'Expense updated successfully']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Error: ' . $stmt->error]);
+    }
+
+    $stmt->close();
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+}
+?>

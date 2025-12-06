@@ -1,5 +1,17 @@
 # Daily-Expense-Tracker-Using-PHP-and-MySQL.
 
+## 🚨 Important Message for Developers
+
+I need help improving this project. The goal is to clean up the current codebase, give it a proper structure, and build a mobile app version of the Daily Expense Tracker.
+
+I also want to add AI features using LLM models to make the app smarter—such as auto-categorizing expenses, giving spending insights, and helping users through a chat-style interface.
+
+Another feature needed is UPI-based transaction tracking, so the app can count and record expenses automatically from UPI payments.
+
+If you are interested in improving the structure, adding AI, or helping build the mobile app, your contribution is welcome.
+
+---
+
 Daily Expense Tracker System is a web-based application and this application is used to manage the application user‘s daily expenses in a more efficient and manageable way. By using this application we can reduce the manual calculations for their daily expenses and keep the track of the expenditure. In this application, the user can provide his/her expense to calculate his/her total expenses per day and these results will be stored for a unique user.
 
 Note 🔴: - This code has been modified from another project's source code on the web.

@@ -487,3 +487,180 @@ nav .profile-options li a i {
     width: calc(100% - 60px);
   }
 }
+
+/* Modern UI Enhancements */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-bottom: 1px solid #eee;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 1.25rem;
+}
+
+.card-title {
+  color: #2c3e50;
+  font-weight: 600;
+  margin: 0;
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border: none;
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border: none;
+  color: #fff;
+}
+
+.btn-outline-danger {
+  border-width: 2px;
+}
+
+.btn-outline-danger:hover {
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+  border-color: transparent;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 1rem;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9ff;
+}
+
+.badge {
+  padding: 0.5em 0.8em;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.badge-danger {
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+}
+
+.modal-content {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-footer {
+  border-top: 1px solid #f0f0f0;
+  border-radius: 0 0 16px 16px;
+}
+
+.pagination .page-link {
+  border-radius: 8px;
+  margin: 0 3px;
+  border: none;
+  color: #667eea;
+}
+
+.pagination .page-item.active .page-link {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.alert {
+  border: none;
+  border-radius: 10px;
+}
+
+.alert-info {
+  background: linear-gradient(135deg, #e0f7fa 0%, #e1f5fe 100%);
+  color: #0277bd;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+  color: #2e7d32;
+}
+
+/* Sidebar hover improvements */
+.sidebar .nav-links li a:hover i,
+.sidebar .nav-links li a:hover .links_name {
+  color: #4facfe;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+}

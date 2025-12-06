@@ -228,10 +228,10 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                                             $userid = $_SESSION['detsuid'];
                                             // Fetch only income categories (assuming a 'type' column or similar in tblcategory)
                                             // If you don't have a 'type' column, you might need a separate table for income categories or filter differently.
-                                            $query = "SELECT * FROM tblcategory WHERE UserId = $userid AND Mode = 'income'"; // Assuming 'category_type' column
+                                            $query = "SELECT * FROM tblcategory WHERE userid = $userid AND mode = 'income'";
                                             $result = mysqli_query($db, $query);
                                             while ($row = mysqli_fetch_assoc($result)) {
-                                                echo '<option value="' . $row['CategoryId'] . '">' . $row['CategoryName'] . '</option>';
+                                                echo '<option value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
                                             }
                                             ?>
                                         </select>
@@ -284,13 +284,35 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                 success: function(response) {
                   if (response.status === 'success') {
                     alert(response.message);
-                    window.location.href = 'manage-transaction.php'; // Or manage-income.php if it exists
+                    window.location.href = 'manage-transaction.php';
                   } else {
                     alert(response.message);
                   }
                 },
                 error: function() {
                   alert('An error occurred while processing your request.');
+                }
+              });
+            });
+
+            // Add Category AJAX handler
+            $('#add-category-form').on('submit', function(e) {
+              e.preventDefault();
+              $.ajax({
+                url: 'api/add-category.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                  if (response.status === 'success') {
+                    alert(response.message);
+                    location.reload();
+                  } else {
+                    alert(response.message);
+                  }
+                },
+                error: function() {
+                  alert('An error occurred while adding the category.');
                 }
               });
             });

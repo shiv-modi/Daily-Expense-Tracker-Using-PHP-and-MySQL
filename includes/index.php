@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
     $result = $db->query($query);
     
     // If a user was found
-    if ($result->num_rows == 1) {
+    if ($result && $result->num_rows == 1) {
         // Get the user's data
         $user = $result->fetch_object();
         

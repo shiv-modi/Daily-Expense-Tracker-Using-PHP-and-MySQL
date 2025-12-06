@@ -210,7 +210,7 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                   <div class="modal fade" id="add-category-modal" tabindex="-1" role="dialog" aria-labelledby="add-category-modal-title" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
-                        <form id="add-category-form" method="post" action="add_category.php">
+                        <form id="add-category-form">
                           <div class="modal-header">
                             <h5 class="modal-title" id="add-category-modal-title">Add Category</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -227,7 +227,7 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary" name="add-category-submit">Add Category</button>
+                            <button type="submit" class="btn btn-primary">Add Category</button>
 
                           </div>
                         </form>
@@ -253,11 +253,11 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                       <option value="" selected disabled>Choose Category</option>
                       <?php
                       $userid = $_SESSION['detsuid'];
-                      $query = "SELECT * FROM tblcategory WHERE UserId = $userid AND Mode = 'expense' ";
+                      $query = "SELECT * FROM tblcategory WHERE userid = $userid AND mode = 'expense' ";
                       $result = mysqli_query($db, $query);
                       while ($row = mysqli_fetch_assoc($result)) {
                         // Display category options in a dropdown
-                        echo '<option value="' . $row['CategoryId'] . '">' . $row['CategoryName'] . '</option>';
+                        echo '<option value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
                       }
                       ?>
                     </select>
@@ -327,6 +327,28 @@ if (strlen($_SESSION['detsuid'] == 0)) {
             },
             error: function() {
               alert('An error occurred while processing your request.');
+            }
+          });
+        });
+
+        // Add Category AJAX handler
+        $('#add-category-form').on('submit', function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: 'api/add-category.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+              if (response.status === 'success') {
+                alert(response.message);
+                location.reload();
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function() {
+              alert('An error occurred while adding the category.');
             }
           });
         });

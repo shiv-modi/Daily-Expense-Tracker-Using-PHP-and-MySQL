@@ -6,23 +6,6 @@ include('database.php');
 if (strlen($_SESSION['detsuid'] == 0)) {
   header('location:logout.php');
 } else {
-  if (isset($_POST['submit'])) {
-    $userid = $_SESSION['detsuid'];
-    $dateexpense = $_POST['dateexpense'];
-    $CategoryId = $_POST['CategoryId'];
-    $category = $_POST['category'];
-    $Description = $_POST['category-description'];
-    $costitem = $_POST['costitem'];
-    $query = mysqli_query($db, "INSERT INTO tblexpense(UserId, ExpenseDate,CategoryId ,category, ExpenseCost ,Description) SELECT '$userid', '$dateexpense',CategoryId, CategoryName, '$costitem' ,'$Description ' FROM tblcategory WHERE CategoryId = '$category'");
-    if ($query) {
-      $message = "Expense added successfully";
-      echo "<script type='text/javascript'>alert('$message');</script>";
-      echo " <script type='text/javascript'>window.location.href = 'manage-transaction.php';</script>";
-    } else {
-      $message = "Expense could not be added";
-      echo "<script type='text/javascript'>alert('$message');</script>";
-    }
-  }
 ?>
 
 
@@ -257,7 +240,7 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                 </div>
               </div>
               <div class="card-body">
-                <form id="expense-form" role="form" method="post" action="" class="needs-validation">
+                <form id="expenseForm" role="form" class="needs-validation">
                   <div class="form-group">
                     <label for="dateexpense">Date of Expense</label>
                     <input class="form-control" type="date" id="dateexpense" name="dateexpense" value="<?php echo date('Y-m-d'); ?>">
@@ -324,6 +307,30 @@ if (strlen($_SESSION['detsuid'] == 0)) {
         } else
           sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
       }
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('#expenseForm').on('submit', function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: 'api/add-expense.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+              if (response.status === 'success') {
+                alert(response.message);
+                window.location.href = 'manage-transaction.php';
+              } else {
+                alert(response.message);
+              }
+            },
+            error: function() {
+              alert('An error occurred while processing your request.');
+            }
+          });
+        });
+      });
     </script>
 
   <?php } ?>

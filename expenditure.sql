@@ -197,7 +197,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `verification_code`, `created_at`) VALUES
-(68, 'User', 'user@gmail.com', '9245657856', '$2y$10$JkvQ00olAxMBVQBUJ6kZp.rNtv0v5K7OChUeVvR04uAq8ZEFWDC2.', '4ebebb3c3d07', '2023-04-12 10:31:16');
+(68, 'User', '91thiru@gmail.com', '9042967143', '$2y$10$JkvQ00olAxMBVQBUJ6kZp.rNtv0v5K7OChUeVvR04uAq8ZEFWDC2.', '4ebebb3c3d07', '2023-04-12 10:31:16');
 
 --
 -- Indexes for dumped tables

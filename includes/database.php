@@ -1,10 +1,12 @@
 
 <?php
 
-$host = "localhost"; // change this to your MySQL hostname
-$user = "root"; // change this to your MySQL username
-$pass = ""; // change this to your MySQL password
-$dbname = "expenditure"; // change this to your MySQL database name
+include_once('env_loader.php');
+
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASS');
+$dbname = getenv('DB_NAME');
 
 $db = new mysqli($host, $user, $pass, $dbname);
 

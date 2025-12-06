@@ -6,26 +6,6 @@ include('database.php');
 if (strlen($_SESSION['detsuid'] == 0)) {
     header('location:logout.php');
 } else {
-    if (isset($_POST['submit'])) {
-        $userid = $_SESSION['detsuid'];
-        $incomeDate = $_POST['incomeDate'];
-        $categoryId = $_POST['category']; // Changed from CategoryId to category for consistency with HTML form
-        $incomeAmount = $_POST['incomeAmount'];
-        $description = $_POST['description'];
-
-        // Corrected SQL query to insert into tblincome
-        // It selects CategoryName from tblcategory based on CategoryId and inserts into tblincome
-        $query = mysqli_query($db, "INSERT INTO tblincome(UserId, IncomeDate, CategoryId, category, IncomeAmount, Description) SELECT '$userid', '$incomeDate', '$categoryId', CategoryName, '$incomeAmount', '$description' FROM tblcategory WHERE CategoryId = '$categoryId'");
-
-        if ($query) {
-            $message = "Income added successfully";
-            echo "<script type='text/javascript'>alert('$message');</script>";
-            echo " <script type='text/javascript'>window.location.href = 'manage-income.php';</script>"; // Redirect to manage-income.php
-        } else {
-            $message = "Income could not be added";
-            echo "<script type='text/javascript'>alert('$message');</script>";
-        }
-    }
 ?>
 
     <!DOCTYPE html>
@@ -234,7 +214,7 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form id="income-form" role="form" method="post" action="" class="needs-validation">
+                                <form id="incomeForm" role="form" class="needs-validation">
                                     <div class="form-group">
                                         <label for="incomeDate">Date of Income</label>
                                         <input class="form-control" type="date" id="incomeDate" name="incomeDate" value="<?php echo date('Y-m-d'); ?>">
@@ -291,6 +271,30 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                 } else
                     sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
             }
+        </script>
+        <script>
+          $(document).ready(function() {
+            $('#incomeForm').on('submit', function(e) {
+              e.preventDefault();
+              $.ajax({
+                url: 'api/add-income.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                  if (response.status === 'success') {
+                    alert(response.message);
+                    window.location.href = 'manage-transaction.php'; // Or manage-income.php if it exists
+                  } else {
+                    alert(response.message);
+                  }
+                },
+                error: function() {
+                  alert('An error occurred while processing your request.');
+                }
+              });
+            });
+          });
         </script>
 
     <?php } ?>

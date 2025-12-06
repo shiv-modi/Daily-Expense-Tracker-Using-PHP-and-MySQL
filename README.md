@@ -50,11 +50,10 @@ All API documentation is stored here:
 
 📄 [API_DOCS.md](https://github.com/shiv-modi/Daily-Expense-Tracker-Using-PHP-and-MySQL/blob/main/README.md)
 
-🟪 User Account :
+## 🔐 Demo User Account
 
--> Username : user@gmail.com
-
--> Password : 12345678
+**Email:** user@gmail.com  
+**Password:** 12345678
 
 ✨Screenshots :
 

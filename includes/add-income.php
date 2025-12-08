@@ -226,16 +226,19 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                                             <option value="" selected disabled>Choose Category</option>
                                             <?php
                                             $userid = $_SESSION['detsuid'];
-                                            // Fetch only income categories (assuming a 'type' column or similar in tblcategory)
-                                            // If you don't have a 'type' column, you might need a separate table for income categories or filter differently.
-                                            $query = "SELECT * FROM tblcategory WHERE userid = $userid AND mode = 'income'";
+
+                                            $query = "SELECT CategoryId, CategoryName FROM tblcategory 
+                                                    WHERE UserId = $userid AND Mode = 'income'";
                                             $result = mysqli_query($db, $query);
+
                                             while ($row = mysqli_fetch_assoc($result)) {
-                                                echo '<option value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
+                                                echo '<option value="' . $row['CategoryId'] . '">' . $row['CategoryName'] . '</option>';
                                             }
                                             ?>
                                         </select>
                                     </div>
+
+
 
                                     <div class="form-group">
                                         <label for="incomeAmount">Amount of Income</label>

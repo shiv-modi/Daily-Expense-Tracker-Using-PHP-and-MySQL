@@ -247,21 +247,23 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                   </div>
 
 
-                  <div class="form-group">
+                 <div class="form-group">
                     <label for="category">Category</label>
                     <select class="form-control" id="category" name="category" required>
-                      <option value="" selected disabled>Choose Category</option>
-                      <?php
-                      $userid = $_SESSION['detsuid'];
-                      $query = "SELECT * FROM tblcategory WHERE userid = $userid AND mode = 'expense' ";
-                      $result = mysqli_query($db, $query);
-                      while ($row = mysqli_fetch_assoc($result)) {
-                        // Display category options in a dropdown
-                        echo '<option value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
-                      }
-                      ?>
+                        <option value="" selected disabled>Choose Category</option>
+                        <?php
+                        $userid = $_SESSION['detsuid'];
+                        $query = "SELECT CategoryId, CategoryName FROM tblcategory 
+                                  WHERE UserId = $userid AND Mode = 'expense'";
+                        $result = mysqli_query($db, $query);
+
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<option value="' . $row['CategoryId'] . '">' . $row['CategoryName'] . '</option>';
+                        }
+                        ?>
                     </select>
-                  </div>
+                </div>
+
 
                   <div class="form-group">
                     <label for="costitem">Cost of Item</label>

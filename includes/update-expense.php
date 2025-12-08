@@ -2,6 +2,11 @@
 session_start(); // added session_start() to start session
 include('database.php');
 
+if (empty($_SESSION['detsuid'])) {
+    header('location:index.php');
+    exit;
+}
+
 if (isset($_POST['submit'])) {
   $userid = $_SESSION['detsuid'];
   $dateexpense = $_POST['dateexpense'];

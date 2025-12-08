@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('database.php');
 
-if (strlen($_SESSION['detsuid'] == 0)) {
+if (empty($_SESSION['detsuid'])) {
     header('location:logout.php');
 } else {
 ?>
@@ -20,6 +20,7 @@ if (strlen($_SESSION['detsuid'] == 0)) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/auth.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="js/scripts.js"></script>
 
@@ -224,16 +225,8 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                                         <label for="category">Category</label>
                                         <select class="form-control" id="category" name="category" required>
                                             <option value="" selected disabled>Choose Category</option>
-                                            <?php
-                                            $userid = $_SESSION['detsuid'];
-                                            // Fetch only income categories (assuming a 'type' column or similar in tblcategory)
-                                            // If you don't have a 'type' column, you might need a separate table for income categories or filter differently.
-                                            $query = "SELECT * FROM tblcategory WHERE userid = $userid AND mode = 'income'";
-                                            $result = mysqli_query($db, $query);
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                echo '<option value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
-                                            }
-                                            ?>
+                                            <!-- Categories will be loaded via AJAX -->
+
                                         </select>
                                     </div>
 
@@ -274,6 +267,31 @@ if (strlen($_SESSION['detsuid'] == 0)) {
         </script>
         <script>
           $(document).ready(function() {
+            loadCategories();
+
+            function loadCategories() {
+                $.ajax({
+                    url: 'api/get-categories.php',
+                    type: 'GET',
+                    data: { mode: 'income' },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            var options = '<option value="" selected disabled>Choose Category</option>';
+                            $.each(response.data, function(index, category) {
+                                options += '<option value="' + category.categoryid + '">' + category.categoryname + '</option>';
+                            });
+                            $('#category').html(options);
+                        } else {
+                            console.error('Failed to load categories');
+                        }
+                    },
+                    error: function() {
+                        console.error('Error loading categories');
+                    }
+                });
+            }
+
             $('#incomeForm').on('submit', function(e) {
               e.preventDefault();
               $.ajax({
@@ -306,7 +324,9 @@ if (strlen($_SESSION['detsuid'] == 0)) {
                 success: function(response) {
                   if (response.status === 'success') {
                     alert(response.message);
-                    location.reload();
+                    $('#add-category-modal').modal('hide');
+                    $('#add-category-form')[0].reset();
+                    loadCategories(); // Refresh categories without reload
                   } else {
                     alert(response.message);
                   }

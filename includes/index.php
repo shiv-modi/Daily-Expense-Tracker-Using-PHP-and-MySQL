@@ -17,13 +17,13 @@
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-md-9 col-lg-6 col-xl-5">
+      <div class="col-md-9 col-lg-6 col-xl-5 d-none d-md-block">
         <img src="images/Wavy_Tech-28_Single-10.jpg" class="img-fluid" alt="Sample image">
       </div>
-      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form id="loginForm">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form id="loginForm" class="login-form-container">
           <h2 class="fw-bold mb-2 text-center text-uppercase">Login</h2>
-          <p class="text-black-50 text-center mb-5">Please enter your login and password!</p>
+          <p class="text-black-50 text-center mb-4">Please enter your login and password!</p>
           <p id="error-msg" style="font-size:16px; color:red" class="text-center"></p>
           <p id="success-msg" style="font-size:16px; color:green" class="text-center"></p>
           
@@ -32,13 +32,13 @@
             <label class="form-label" for="email">Email address</label>
           </div>
 
-          <div class="form-outline mb-3">
+          <div class="form-outline mb-3 position-relative">
             <input type="password" id="password" name="password" class="form-control form-control-lg" required/>
             <label class="form-label" for="password">Password</label>
             <i class="bx bx-hide show-hide"></i>
           </div>
 
-          <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="form-check mb-0">
               <input class="form-check-input me-2" type="checkbox" value="" id="rememberMe"/>
               <label class="form-check-label" for="rememberMe">Remember me</label>
@@ -47,11 +47,11 @@
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" id="loginBtn" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+            <button type="submit" id="loginBtn" class="btn btn-primary btn-lg w-100 w-md-auto" style="padding-left: 2.5rem; padding-right: 2.5rem;">
               <span id="loginText">Login</span>
               <span id="loginSpinner" class="spinner-border spinner-border-sm" role="status" style="display:none;"></span>
             </button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="signup.php" class="link-danger">Create account</a></p>
+            <p class="small fw-bold mt-3 pt-1 mb-0 text-center text-md-start">Don't have an account? <a href="signup.php" class="link-danger">Create account</a></p>
           </div>
         </form>
       </div>
@@ -66,6 +66,20 @@ document.addEventListener('DOMContentLoaded', () => {
             new mdb.Input(formOutline).init();
         });
     }
+    
+    // Keep label raised when input has value
+    document.querySelectorAll('.form-control').forEach((input) => {
+        input.addEventListener('blur', function() {
+            if (this.value.trim() !== '') {
+                this.classList.add('active');
+            }
+        });
+        
+        // Check on page load if input has value
+        if (input.value.trim() !== '') {
+            input.classList.add('active');
+        }
+    });
     
     if (typeof AuthManager !== 'undefined' && AuthManager.isAuthenticated()) {
         window.location.href = 'home.php';
@@ -152,13 +166,11 @@ eyeIcons.forEach((eyeIcon) => {
     height: 1px;
     background: #eee;
 }
+
 body {
-    overflow-y: hidden;
     overflow-x: hidden;
 }
-element.style {
-    background-color: #eee;
-}
+
 .show-hide {
     position: absolute;
     right: 13px;
@@ -168,11 +180,101 @@ element.style {
     color: #919191;
     cursor: pointer;
     padding: 3px;
+    z-index: 10;
 }
-.mx-md-4 {
-    margin-right: 1.5rem!important;
-    margin-left: 1.5rem!important;
-    margin-top: -1.5rem;
+
+/* Fix input borders for MDB form-outline */
+.form-outline .form-control {
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.form-outline .form-control:focus {
+    border-color: #1266f1;
+    box-shadow: inset 0 0 0 1px #1266f1;
+}
+
+.form-outline .form-label {
+    background-color: #fff;
+    padding: 0 4px;
+}
+
+.form-outline .form-control:focus ~ .form-label,
+.form-outline .form-control.active ~ .form-label {
+    background-color: #fff;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 767px) {
+    body {
+        overflow-y: auto;
+    }
+    
+    section.vh-100 {
+        min-height: 100vh;
+        height: auto;
+    }
+    
+    .h-custom {
+        height: auto !important;
+        min-height: 100vh;
+    }
+    
+    .login-form-container {
+        padding: 2rem 1rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .form-control-lg {
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1.5rem !important;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .login-form-container {
+        padding: 1rem;
+    }
+}
+
+/* Ensure proper spacing on all devices */
+.row {
+    margin: 0;
+}
+
+.h-custom {
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .h-custom {
+        padding: 2rem;
+    }
+}
+
+/* Fix for very small screens */
+@media (max-width: 375px) {
+    .login-form-container {
+        padding: 1rem 0.5rem;
+    }
+    
+    h2 {
+        font-size: 1.25rem;
+    }
+    
+    .form-check-label,
+    .text-body {
+        font-size: 0.875rem;
+    }
 }
 </style>
 </body>

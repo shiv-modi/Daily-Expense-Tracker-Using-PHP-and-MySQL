@@ -261,21 +261,139 @@ addButton.addEventListener('click', () => {
 </script>
 
 <style>
-canvas { width: 100%; height: auto; }
-.card { border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 20px; padding: 20px; background-color: #fff; height: 500px; }
-.card1 { border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 20px; padding: 20px; background-color: #fff; }
-.card-header { background-color: #f7f7f7; border-bottom: 1px solid #ddd; margin-bottom: 20px; padding: 10px; }
-.card-title { font-size: 24px; font-weight: bold; margin: 0; }
-.card-body { padding: 0; }
-.table { border-collapse: collapse; width: 100%; font-size: 16px; text-align: left; }
-.table th { background-color: #f2f2f2; font-weight: bold; padding: 10px 20px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
-.table td { padding: 10px 20px; border-bottom: 1px solid #ddd; }
-.badge { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; padding: 5px 10px; }
-#add-button { position: fixed; bottom: 24px; right: 24px; border: none; border-radius: 50%; background-color: #4285f4; width: 64px; height: 64px; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0px 4px 8px rgba(0,0,0,0.2); transition: all 0.2s ease-in-out; }
-#add-button:hover { transform: translateY(-2px); box-shadow: 0px 8px 16px rgba(0,0,0,0.2); background-color: #000; }
-#add-button i { font-size: 24px; color: #fff; transition: all 0.2s ease-in-out; }
-#add-button:hover i { transform: rotate(-45deg); }
-@media (max-width: 768px) { .card { margin: 10px; padding: 10px; } .card-title { font-size: 20px; } }
+
+    canvas { 
+    width: 100%; 
+    height: 400px;
+}
+
+.card { 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    margin: 20px 0; 
+    padding: 20px; 
+    background-color: #fff; 
+    height: auto;
+    min-height: 500px;
+    float: none;
+    clear: both;
+}
+
+.card1 { 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    margin: 20px 0; 
+    padding: 20px; 
+    background-color: #fff;
+    float: none;
+    clear: both;
+}
+
+.card-header { 
+    background-color: #f7f7f7; 
+    border-bottom: 1px solid #ddd; 
+    margin-bottom: 20px; 
+    padding: 10px; 
+}
+
+.card-title { 
+    font-size: 24px; 
+    font-weight: bold; 
+    margin: 0; 
+}
+
+.card-body { 
+    padding: 0; 
+    height: 400px;
+}
+
+.card1 .card-body {
+    height: auto;
+}
+
+.table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    font-size: 16px; 
+    text-align: left; 
+}
+
+.table th { 
+    background-color: #f2f2f2; 
+    font-weight: bold; 
+    padding: 10px 20px; 
+    border-top: 1px solid #ddd; 
+    border-bottom: 1px solid #ddd; 
+}
+
+.table td { 
+    padding: 10px 20px; 
+    border-bottom: 1px solid #ddd; 
+}
+
+.badge { 
+    font-size: 14px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    padding: 5px 10px; 
+}
+
+#add-button { 
+    position: fixed; 
+    bottom: 24px; 
+    right: 24px; 
+    border: none; 
+    border-radius: 50%; 
+    background-color: #4285f4; 
+    width: 64px; 
+    height: 64px; 
+    cursor: pointer; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2); 
+    transition: all 0.2s ease-in-out; 
+    z-index: 999;
+}
+
+#add-button:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2); 
+    background-color: #000; 
+}
+
+#add-button i { 
+    font-size: 24px; 
+    color: #fff; 
+    transition: all 0.2s ease-in-out; 
+}
+
+#add-button:hover i { 
+    transform: rotate(-45deg); 
+}
+
+@media (max-width: 768px) { 
+    .card,
+    .card1 { 
+        margin: 10px 0; 
+        padding: 10px; 
+    } 
+    
+    .card {
+        min-height: auto;
+        height: auto;
+    }
+    
+    .card-body {
+        height: 300px;
+    }
+    
+    .card-title { 
+        font-size: 20px; 
+    } 
+}
 </style>
 </body>
 </html>

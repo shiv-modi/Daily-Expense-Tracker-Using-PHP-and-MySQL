@@ -3,7 +3,7 @@
 session_start();
 error_reporting(0);
 include('database.php');
-if (strlen($_SESSION['detsuid']==0)) {
+if (empty($_SESSION['detsuid'])) {
   header('location:logout.php');
   } else{
 ?>
@@ -23,6 +23,7 @@ if (strlen($_SESSION['detsuid']==0)) {
 
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/auth.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

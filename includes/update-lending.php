@@ -1,9 +1,11 @@
 <?php
 // Start the session and retrieve the user ID from the session data
 session_start();
-if (isset($_SESSION['detsuid'])) {
-    $userid = $_SESSION['detsuid'];
-} 
+if (empty($_SESSION['detsuid'])) {
+    header('location:index.php');
+    exit;
+}
+$userid = $_SESSION['detsuid']; 
 
 // Include the database connection file
 include_once 'database.php';

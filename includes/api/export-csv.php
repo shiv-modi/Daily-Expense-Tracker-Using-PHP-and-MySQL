@@ -1,14 +1,15 @@
 <?php
-session_start();
 include_once('../database.php');
+include_once('../auth_helper.php');
 
-if (empty($_SESSION['detsuid'])) {
+$userid = getAuthenticatedUserId();
+
+if (!$userid) {
     header('Content-Type: application/json');
     echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
     exit;
 }
 
-$userid = $_SESSION['detsuid'];
 $type = $_GET['type'] ?? 'all';
 $startDate = $_GET['start_date'] ?? null;
 $endDate = $_GET['end_date'] ?? null;

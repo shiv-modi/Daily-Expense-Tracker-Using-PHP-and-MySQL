@@ -1,31 +1,33 @@
 <?php
-session_start();
 header('Content-Type: application/json');
-include_once('../database.php');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-// Helper function to convert various date formats to YYYY-MM-DD
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+include_once('../database.php');
+include_once('../auth_helper.php');
+
 function convertDateFormat($dateStr) {
     $dateStr = trim($dateStr);
     
-    // Try to parse using strtotime which handles many formats
     $timestamp = strtotime($dateStr);
     if ($timestamp !== false) {
         return date('Y-m-d', $timestamp);
     }
     
-    // Fallback: try manual parsing for common formats
     if (strpos($dateStr, '/') !== false) {
         $parts = explode('/', $dateStr);
         if (count($parts) === 3) {
-            // Clean up parts
             $parts = array_map('trim', $parts);
             
-            // Determine format
             if (strlen($parts[0]) === 4) {
-                // YYYY/MM/DD
                 return $parts[0] . '-' . str_pad($parts[1], 2, '0', STR_PAD_LEFT) . '-' . str_pad($parts[2], 2, '0', STR_PAD_LEFT);
             } else if (strlen($parts[2]) === 4) {
-                // DD/MM/YYYY or MM/DD/YYYY - assume DD/MM/YYYY for international format
                 return $parts[2] . '-' . str_pad($parts[1], 2, '0', STR_PAD_LEFT) . '-' . str_pad($parts[0], 2, '0', STR_PAD_LEFT);
             }
         }
@@ -35,10 +37,8 @@ function convertDateFormat($dateStr) {
             $parts = array_map('trim', $parts);
             
             if (strlen($parts[0]) === 4) {
-                // YYYY-MM-DD
                 return $parts[0] . '-' . str_pad($parts[1], 2, '0', STR_PAD_LEFT) . '-' . str_pad($parts[2], 2, '0', STR_PAD_LEFT);
             } else if (strlen($parts[2]) === 4) {
-                // DD-MM-YYYY
                 return $parts[2] . '-' . str_pad($parts[1], 2, '0', STR_PAD_LEFT) . '-' . str_pad($parts[0], 2, '0', STR_PAD_LEFT);
             }
         }
@@ -47,19 +47,13 @@ function convertDateFormat($dateStr) {
     return '';
 }
 
-// Helper function to validate date format
 function isValidDate($date) {
     $d = DateTime::createFromFormat('Y-m-d', $date);
     return $d && $d->format('Y-m-d') === $date;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (empty($_SESSION['detsuid'])) {
-        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-        exit;
-    }
-
-    $userid = $_SESSION['detsuid'];
+    $userid = requireAuthentication();
 
     if (!isset($_FILES['csv_file']) && !isset($_FILES['csv-file'])) {
         echo json_encode(['status' => 'error', 'message' => 'No file uploaded or upload error']);
@@ -117,7 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (empty($date)) continue;
 
-            // Convert date to YYYY-MM-DD format
             $date = convertDateFormat($date);
             
             if (empty($date) || !isValidDate($date)) {

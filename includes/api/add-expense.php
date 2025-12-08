@@ -1,16 +1,20 @@
 <?php
-session_start();
 header('Content-Type: application/json');
-include_once('../database.php');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+include_once('../database.php');
+include_once('../auth_helper.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (empty($_SESSION['detsuid'])) {
-        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-        exit;
-    }
+    $userid = requireAuthentication();
 
-    $userid = $_SESSION['detsuid'];
     $dateexpense = $_POST['dateexpense'] ?? '';
     $category = $_POST['category'] ?? '';
     $Description = $_POST['category-description'] ?? '';
@@ -20,11 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
         exit;
     }
-
-    // Use prepared statements
-    // Note: The original query selected CategoryName from tblcategory. We can do that with a subquery or join, or just trust the ID if the name isn't strictly needed in the expense table (normalization).
-    // However, the original query was: INSERT INTO tblexpense ... SELECT ... FROM tblcategory WHERE CategoryId = '$category'
-    // We will replicate that logic securely.
 
     $stmt = $db->prepare("INSERT INTO tblexpense (UserId, ExpenseDate, CategoryId, category, ExpenseCost, Description) SELECT ?, ?, CategoryId, CategoryName, ?, ? FROM tblcategory WHERE CategoryId = ?");
     $stmt->bind_param("isiss", $userid, $dateexpense, $costitem, $Description, $category);

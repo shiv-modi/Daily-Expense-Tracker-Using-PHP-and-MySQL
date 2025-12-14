@@ -2,7 +2,7 @@
 
 ## 🚨 Important Message for Developers
 
-I need help improving this project. The goal is to clean up the current codebase, give it a proper structure, and build a mobile app version of the Daily Expense Tracker.
+I need help improving this project. The goal is to clean up the current codebase, give it a proper structure, and we are build a mobile app version of the Daily Expense Tracker.
 
 I also want to add AI features using LLM models to make the app smarter—such as auto-categorizing expenses, giving spending insights, and helping users through a chat-style interface.
 

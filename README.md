@@ -48,7 +48,7 @@ You can modify the code to meet your specific requirements.
 12. Setting
 13. JWT Authentication - Coming soon... Stay tuned!
 
-🟩 Installation/Setup
+🟩 Web Installation/Setup
 
 1.  Open your XAMPP/WAMP's Control Panel and start the Apache and MySQL.
 2.  Extract the downloaded source code zip file.
@@ -57,6 +57,10 @@ You can modify the code to meet your specific requirements.
 5.  Import the provided SQL file. The file is known as expenditure.sql located inside the database folder.
 6.  Browse the Budget and Expense Tracker System in a browser. i.e. http://localhost/Daily-Expense-Tracker-Using-PHP-and-MySQL
 7.  Change the database credentials in .env file
+
+🟨 Android App
+
+📲 Repo : [link](https://github.com/shiv-modi/Expenditure-Daily-Expense-Tracker-Android-App.git)
 
 ## 📑 API Documentation
 

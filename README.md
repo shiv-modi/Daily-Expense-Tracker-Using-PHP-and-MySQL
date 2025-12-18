@@ -66,7 +66,7 @@ You can modify the code to meet your specific requirements.
 
 All API documentation is stored here:
 
-📄 [API_DOCS.md](https://github.com/shiv-modi/Daily-Expense-Tracker-Using-PHP-and-MySQL/blob/main/README.md)
+📄 [API_DOCS.md](https://github.com/shiv-modi/Daily-Expense-Tracker-Using-PHP-and-MySQL/blob/main/API_DOCS.md)
 
 ## 🔐 Demo User Account
 

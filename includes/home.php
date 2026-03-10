@@ -171,6 +171,8 @@ function loadDashboardData() {
             if (xhr.status === 401) {
                 localStorage.removeItem('access_token');
                 window.location.href = 'index.php';
+            } else {
+                $('#user-name').text('Error loading data. Please refresh the page.');
             }
         }
     });

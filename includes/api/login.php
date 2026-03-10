@@ -9,6 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include_once('../database.php');
 include_once('../jwt.php');
 
@@ -33,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $result->fetch_object();
         
         if (password_verify($password, $user->password)) {
-            session_start();
             $_SESSION['detsuid'] = $user->id;
             
             $payload = [

@@ -1,27 +1,20 @@
 <?php
 session_start();
+include_once('database.php');
 $userid = $_SESSION['detsuid'];
-
-// Connect to MySQL database
-$db = mysqli_connect("localhost", "root", "", "expenditure");
-
-// Check connection
-if (!$db) {
-  die("Connection failed: " . mysqli_connect_error());
-}
 
 // Retrieve total expense of each category
 $query = "SELECT category, SUM(ExpenseCost) AS total_expense FROM tblexpense WHERE UserId = ? GROUP BY category";
-$stmt = mysqli_prepare($db, $query);
-mysqli_stmt_bind_param($stmt, "i", $userid); // Bind the user ID parameter to the statement
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+$stmt = $db->prepare($query);
+$stmt->bind_param("i", $userid);
+$stmt->execute();
+$result = $stmt->get_result();
 
 // Create an array to store the results
 $data = array();
 
 // Loop through the results and add them to the array
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = $result->fetch_assoc()) {
   $data[] = array(
     'category' => $row['category'],
     'total_expense' => $row['total_expense'],

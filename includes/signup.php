@@ -41,62 +41,85 @@
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                <form class="mx-1 mx-md-4" action="" method="post">
-                
+                <form class="mx-1 mx-md-4" id="signupForm">
+                  <p id="error-msg" style="font-size:16px; color:red" class="text-center"></p>
+                  <p id="success-msg" style="font-size:16px; color:green" class="text-center"></p>
+
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                    <input type="text" class="form-control" name="name" id="inputEmail4" required>
-                      <label class="form-label" for="form3Example1c">Your Name</label>
+                    <input type="text" class="form-control" name="name" id="name" required>
+                      <label class="form-label" for="name">Your Name</label>
                     </div>
-                    <!-- <span class="error password-error">
-            <i class="bx bx-error-circle error-icon"></i>
-            <p class="error-text">
-              Please Enter a valid Username
-            </p>
-          </span> -->
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="email" name="email" id="form3Example3c" class="form-control" required/>
-                      <label class="form-label" for="form3Example3c">Your Email</label>
+                      <input type="email" name="email" id="email" class="form-control" required/>
+                      <label class="form-label" for="email">Your Email</label>
                     </div>
-                    
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="text" name="phone" id="inputPassword4" class="form-control" required/>
-                      <label class="form-label" for="form3Example3c">Mobile Number</label>
+                      <input type="text" name="phone" id="phone" class="form-control" required/>
+                      <label class="form-label" for="phone">Mobile Number</label>
                     </div>
-                    
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                   
-                    <input type="password" class="form-control" name ="password" id="inputPassword4" required>
-                      <label class="form-label" for="form3Example4c">Password</label>
+                    <div class="form-outline flex-fill mb-0 position-relative">
+                    <input type="password" class="form-control" name="password" id="password" required>
+                      <label class="form-label" for="password">Password</label>
                       <i class="bx bx-hide show-hide"></i>
-
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                 
-                    <input type="password" class="form-control" name ="confirm_password" id="inputPassword" required>
-                      <label class="form-label" for="form3Example4cd">Confirm Password</label>
+                    <div class="form-outline flex-fill mb-0 position-relative">
+                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                      <label class="form-label" for="confirm_password">Confirm Password</label>
                       <i class="bx bx-hide show-hide"></i>
                     </div>
-                   
-
                   </div>
+
+                  <div class="form-check d-flex justify-content-center mb-3">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" required/>
+                    <label class="form-check-label" for="form2Example3">
+                      I agree all statements in <a href="#!">Terms of service</a>
+                    </label>
+                  </div>
+
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" id="signupBtn" class="btn btn-primary btn-lg">
+                      <span id="signupText">Create Account</span>
+                      <span id="signupSpinner" class="spinner-border spinner-border-sm" role="status" style="display:none;"></span>
+                    </button>
+                  </div>
+
+                <p class="text-center text-muted ">Have already an account? <a href="index.php"
+                    class="fw-bold text-body link-danger"><u>Login here</u></a></p>
+
+                </form>
+                
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="images/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+</section>
+
 <style>
 .show-hide {
   position: absolute;
@@ -115,26 +138,7 @@
     margin-top: -1.5rem;
 }
 
-
-  </style>
-                  <div class="form-check d-flex justify-content-center mb-3">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" required/>
-                    <label class="form-check-label" for="form2Example3">
-                      I agree all statements in <a href="#!">Terms of service</a>
-                    </label>
-                  </div>
-
-                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit"  name="submit" value="Signup" class="btn btn-primary btn-lg">Create Account</button>
-                  </div>
-                
-          <!-- <div class="divider d-flex align-items-center my-4">
-           
-                  
-                  <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-          </div> -->
-          <style>
-            .divider:after,
+.divider:after,
 .divider:before {
 content: "";
 flex: 1;
@@ -149,33 +153,7 @@ body {
 element.style {
     background-color: #eee;
 }
-            </style>
-
-<!-- <button class="btn btn-block btn-primary" style="background-color: #dd4b39;"
-  type="submit"><i class="fab fa-google me-2 "></i> Sign in with google</button>
-
-<button class="btn btn-block btn-primary mb-2" style="background-color: #3b5998;"
-  type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button>
-<br> -->
-                <p class="text-center text-muted ">Have already an account? <a href="index.php"
-                    class="fw-bold text-body link-danger"><u>Login here</u></a></p>
-                    
-                </form>
-                
-              </div>
-              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                <img src="images/draw1.webp"
-                  class="img-fluid" alt="Sample image">
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-</section>
-
+</style>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.form-outline').forEach((formOutline) => {
@@ -203,66 +181,94 @@ eyeIcons.forEach((eyeIcon) => {
 
 
 
-<?php
-
-//connect to the database
-include_once 'database.php';
-//check if form has been submitted
-if(isset($_POST["submit"])){
-    //get form data
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $phone = $_POST["phone"];
-    $password = $_POST["password"];
-    $confirm_password = $_POST["confirm_password"];
-    
-    //validate form data
-    if(empty($name) || empty($email) || empty($password) || empty($confirm_password)){
-        echo '<script type ="text/JavaScript">';  
-        echo 'alert("All fields are required")';
-        echo '</script>'; 
-    }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        echo '<script type ="text/JavaScript">';  
-        echo 'alert("Invalid email address")';
-        echo '</script>'; 
-    }elseif(strlen($phone) < 10){
-        echo '<script type ="text/JavaScript">';  
-        echo 'alert("Invalid Phone Number")';
-        echo '</script>'; 
-
-    }elseif($password != $confirm_password){
-      echo '<script type ="text/JavaScript">';  
-      echo 'alert("Passwords do not match")';
-      echo '</script>';  
-    }elseif(strlen($password) < 8){
-      echo '<script type ="text/JavaScript">';  
-      echo 'alert("Password must be at least 8 characters long")';
-      echo '</script>'; 
-        
-    }else{
-        //encrypt password
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        
-        //generate verification code
-        $verification_code = md5(rand());
-        
-        //store user data in the database
-        $stmt = $db->prepare("INSERT INTO users (name, email, phone, password, verification_code, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
-        $stmt->bind_param("sssss", $name, $email,$phone, $password, $verification_code);
-        $stmt->execute();
-        
-        //send verification email
-        $to = $email;
-        $subject = "Signup Verification";
-        $message = "Click the link to verify your email address: http://example.com/verify.php?code=$verification_code";
-        $headers = "From: no-reply@example.com";
-        mail($to, $subject, $message, $headers);
-        echo '<script type ="text/JavaScript">';  
-      echo 'alert("Signup successful!")';
-
-      echo '</script>'; 
-    }
+<style>
+.show-hide {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #919191;
+  cursor: pointer;
+  padding: 3px;
 }
 
-?>
+.mx-md-4 {
+    margin-right: 1.5rem!important;
+    margin-left: 1.5rem!important;
+    margin-top: -1.5rem;
+}
 
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+element.style {
+    background-color: #eee;
+}
+</style>
+<script>
+document.querySelector("#signupForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    var name = document.querySelector("#name").value;
+    var email = document.querySelector("#email").value;
+    var phone = document.querySelector("#phone").value;
+    var password = document.getElementById("password").value;
+    var confirm_password = document.getElementById("confirm_password").value;
+    var signupBtn = document.getElementById("signupBtn");
+    var signupText = document.getElementById("signupText");
+    var signupSpinner = document.getElementById("signupSpinner");
+    var errorMsg = document.getElementById("error-msg");
+    var successMsg = document.getElementById("success-msg");
+
+    errorMsg.textContent = "";
+    successMsg.textContent = "";
+
+    signupBtn.disabled = true;
+    signupText.style.display = "none";
+    signupSpinner.style.display = "inline-block";
+
+    fetch("api/signup.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            password: password,
+            confirm_password: confirm_password
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            successMsg.textContent = data.message;
+            setTimeout(function() {
+                window.location.href = "index.php";
+            }, 1500);
+        } else {
+            errorMsg.textContent = data.message || "An error occurred";
+            signupBtn.disabled = false;
+            signupText.style.display = "inline";
+            signupSpinner.style.display = "none";
+        }
+    })
+    .catch(error => {
+        errorMsg.textContent = "A network error occurred. Please try again.";
+        signupBtn.disabled = false;
+        signupText.style.display = "inline";
+        signupSpinner.style.display = "none";
+    });
+});
+</script>

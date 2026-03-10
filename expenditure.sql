@@ -188,7 +188,7 @@ CREATE TABLE `users` (
   `email` varchar(30) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `verification_code` varchar(12) NOT NULL,
+  `verification_code` varchar(32) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
